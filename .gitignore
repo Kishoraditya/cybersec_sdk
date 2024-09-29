@@ -1,1 +1,7 @@
 cyber/
+cybersec_sdk/build/
+cybersec_sdk/dist/
+cybersec_sdk/cybersec_sdk.egg-info/
+temp/
+cybersec_sdk/system_graph.gexf
+cybersec_sdk/system_report.json

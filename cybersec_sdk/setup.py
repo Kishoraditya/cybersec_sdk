@@ -13,7 +13,7 @@ setup(
     ],
     author='OpenAI Assistant',
     description='An open-source cybersecurity SDK for system analysis and actor identification.',
-    url='https://github.com/yourusername/cybersec_sdk',
+    url='https://github.com/kishoraditya/cybersec_sdk',
     classifiers=[
         'Programming Language :: Python :: 3',
         'Operating System :: OS Independent',
