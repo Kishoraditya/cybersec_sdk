@@ -8,7 +8,7 @@ class AIAssistant:
     """
 
     def __init__(self, api_key: str):
-        openai.api_key = "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"
+        openai.api_key = "key here"
 
     def generate_explanation(self, prompt: str) -> str:
         """
