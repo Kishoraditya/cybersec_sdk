@@ -1,0 +1,9 @@
+joblib==1.4.2
+networkx==3.2.1
+numpy==2.0.2
+psutil==6.0.0
+PyYAML==6.0.2
+scikit-learn==1.5.2
+scipy==1.13.1
+threadpoolctl==3.5.0
+typing==3.7.4.3

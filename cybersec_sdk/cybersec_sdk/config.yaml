@@ -1,0 +1,6 @@
+# cybersec_sdk/config.yaml
+
+sdk:
+  name: "Cybersecurity SDK"
+  version: "1.0.0"
+  author: "OpenAI Assistant"
