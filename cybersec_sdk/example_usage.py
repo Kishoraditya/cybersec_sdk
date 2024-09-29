@@ -56,7 +56,7 @@ def main():
             {'id': node_id}
         )
     # Initialize AI Assistant
-    ai_assistant = AIAssistant(api_key='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')  # Replace with your API key
+    ai_assistant = AIAssistant(api_key='key here')  # Replace with your API key
 
     # Generate explanations for anomalies
     for _, row in anomalies.iterrows():
