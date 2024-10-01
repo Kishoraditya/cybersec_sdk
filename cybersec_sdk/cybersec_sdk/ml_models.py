@@ -1,3 +1,8 @@
+# Copyright [2024] [Kishoraditya]
+#
+# Licensed under the Creative Commons Attribution-NonCommercial 4.0 International License. 
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc/4.0/
+
 # cybersec_sdk/ml_models.py
 
 import numpy as np
@@ -11,7 +16,7 @@ class AnomalyDetector:
     """
 
     def __init__(self):
-        self.model = IsolationForest(n_estimators=100, contamination=0.01, random_state=42)
+        self.model = IsolationForest(n_estimators=100, contamination=0.05, random_state=42)
 
     def train(self, data: pd.DataFrame):
         """

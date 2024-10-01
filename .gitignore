@@ -6,3 +6,34 @@ temp/
 cybersec_sdk/system_graph.gexf
 cybersec_sdk/system_report.json
 cybersec_sdk/.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+*.env
+
+# Terraform
+*.tfstate
+*.tfstate.backup
+.terraform/
+*.tfvars
+tfplan.json
+
+# Docker
+.dockerignore
+
+# IDEs
+.vscode/
+.idea/
+
+# Misc
+*.log
+*.swp
+.DS_Store
+
+temp.txt

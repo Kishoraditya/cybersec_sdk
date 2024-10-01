@@ -1,7 +1,13 @@
+# Copyright [2024] [Kishoraditya]
+#
+# Licensed under the Creative Commons Attribution-NonCommercial 4.0 International License. 
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc/4.0/
+
 # cybersec_sdk/analyzer.py
 
 import psutil
 from typing import List, Dict
+import time
 
 class SystemAnalyzer:
     """
@@ -13,19 +19,37 @@ class SystemAnalyzer:
 
     def get_running_processes(self) -> List[Dict]:
         """
-        Retrieves a list of currently running processes.
+        Retrieves a list of running processes with their details.
         """
         processes = []
-        for proc in psutil.process_iter(['pid', 'name', 'username']):
+        for proc in psutil.process_iter(['pid', 'name', 'username', 'num_threads']):
             try:
-                processes.append(proc.info)
-            except (psutil.NoSuchProcess, psutil.AccessDenied):
+                if proc.pid in [0, 4]:
+                    continue
+                # Initial call to collect CPU usage
+                proc.cpu_percent(interval=0)
+                # Sleep for a short interval
+                time.sleep(1)
+                # Second call to get the actual CPU usage
+                cpu_percent = proc.cpu_percent(interval=None)
+                proc_info = {
+                    'pid': proc.pid,
+                    'name': proc.name(),
+                    'username': proc.username() if proc.username() else "Unknown",
+                    'cpu_percent': cpu_percent,
+                    'memory_percent': proc.memory_percent(),
+                    'num_threads': proc.num_threads(),
+                }
+                processes.append(proc_info)
+            except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
                 continue
         return processes
 
+
+
     def get_network_connections(self) -> List[Dict]:
         """
-        Retrieves active network connections.
+        Retrieves a list of network connections with sanitized data.
         """
         connections = psutil.net_connections()
         conn_list = []
@@ -36,48 +60,50 @@ class SystemAnalyzer:
         return conn_list
     
     def _sanitize_connection(self, conn: Dict) -> Dict:
-        """
-        Sanitizes the connection dictionary by converting unsupported data types.
-        """
         sanitized = {}
         for key, value in conn.items():
-            if isinstance(value, psutil._common.addr):
-                # Convert address to a string "ip:port"
-                sanitized[key] = f"{value.ip}:{value.port}" if value else None
+            if key in ('laddr', 'raddr'):
+                if isinstance(value, tuple) and len(value) >= 2:
+                    sanitized[key] = f"{value[0]}:{value[1]}"
+                else:
+                    sanitized[key] = 'unknown'
+            elif isinstance(value, psutil._common.addr):
+                sanitized[key] = f"{value.ip}:{value.port}" if value else 'unknown'
             elif isinstance(value, (int, float, str, bool)) or value is None:
                 sanitized[key] = value
             else:
-                # Convert other unsupported types to string
                 sanitized[key] = str(value)
         return sanitized
 
+
     def get_users(self) -> List[Dict]:
         """
-        Retrieves logged-in users.
+        Retrieves a list of users logged into the system.
         """
-        users = []
-        for user in psutil.users():
-            users.append({
+        users = psutil.users()
+        user_list = []
+        for user in users:
+            user_list.append({
                 'name': user.name,
                 'terminal': user.terminal,
                 'host': user.host,
                 'started': user.started
             })
-        return users
+        return user_list
     
     def get_open_files(self) -> List[Dict]:
         """
-        Retrieves a list of open files by processes.
+        Retrieves a list of open files.
         """
         open_files = []
         for proc in psutil.process_iter(['pid', 'name']):
             try:
                 files = proc.open_files()
-                for f in files:
+                for file in files:
                     open_files.append({
                         'pid': proc.pid,
-                        'process_name': proc.info['name'],
-                        'file': f.path
+                        'process_name': proc.name(),
+                        'file': file.path
                     })
             except (psutil.NoSuchProcess, psutil.AccessDenied):
                 continue

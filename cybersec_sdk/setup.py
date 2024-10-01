@@ -1,3 +1,9 @@
+# Copyright [2024] [Kishoraditya]
+#
+# Licensed under the Creative Commons Attribution-NonCommercial 4.0 International License. 
+# To view a copy of this license, visit https://creativecommons.org/licenses/by-nc/4.0/
+
+
 # setup.py
 
 from setuptools import setup, find_packages
