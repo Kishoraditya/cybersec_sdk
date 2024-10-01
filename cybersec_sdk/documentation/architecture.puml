@@ -1,0 +1,61 @@
+@startuml
+skinparam backgroundColor #EEEBDC
+skinparam node {
+    BackgroundColor AntiqueWhite
+    BorderColor SaddleBrown
+}
+
+actor User
+
+package "CyberGuard" {
+    component Analyzer {
+        [analyzer.py]
+    }
+    component "Graph Manager" {
+        [graph_manager.py]
+    }
+    component "Neo4j Manager" {
+        [neo4j_manager.py]
+    }
+    component "Anomaly Detector" {
+        [ml_models.py]
+    }
+    component "AI Assistant" {
+        [ai_assistant.py]
+    }
+    component "UI Dashboard" {
+        [ui.py]
+    }
+    component "External Data" {
+        [external_data.py]
+    }
+}
+
+node "System" {
+    [System Processes/Services]
+    [Network Connections]
+    [System Logs]
+}
+
+database "Neo4j Graph DB" {
+    [Graph Data]
+}
+
+cloud "LLM Service" {
+    [Gemini API]
+}
+
+"User" --> "UI Dashboard" : Interacts with
+"UI Dashboard" --> "Anomaly Detector" : Displays anomalies from
+"UI Dashboard" --> "AI Assistant" : Gets explanations from
+"AI Assistant" --> "LLM Service" : Sends prompts to
+"Anomaly Detector" --> "AI Assistant" : Requests explanations
+Analyzer --> "System" : Collects data from
+Analyzer --> "Graph Manager" : Sends data to
+"Graph Manager" --> "Neo4j Manager" : Updates graph
+"Neo4j Manager" --> "Neo4j Graph DB" : Stores/Retrieves data
+"Anomaly Detector" --> "Neo4j Manager" : Fetches data from
+"External Data" --> "Graph Manager" : Provides threat intelligence
+"AI Assistant" --> "Neo4j Manager" : Retrieves data for context
+
+@enduml

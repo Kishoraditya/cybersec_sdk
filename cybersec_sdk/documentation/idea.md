@@ -22,7 +22,7 @@
 
 ## **1. Introduction**
 
-The increasing sophistication of cybersecurity threats necessitates advanced solutions capable of detecting, analyzing, and responding to attacks in real time at the end-user level. Leveraging Machine Learning (ML) models and Large Language Models (LLMs) like OpenAI's GPT-4 or Google's Gemini, we can develop an autonomous system focused on pattern and anomaly detection in network traffic, user behavior, and system logs. This comprehensive plan outlines the steps required to build such a system, integrating analytic hierarchy processes, causal frameworks, and open-source technologies.
+The increasing sophistication of cybersecurity threats necessitates advanced solutions capable of detecting, analyzing, and responding to attacks in real time at the end-user level. Leveraging Machine Learning (ML) models and Large Language Models (LLMs) like Google's Gemini, we can develop an autonomous system focused on pattern and anomaly detection in network traffic, user behavior, and system logs. This comprehensive plan outlines the steps required to build such a system, integrating analytic hierarchy processes, causal frameworks, and open-source technologies.
 
 ---
 
@@ -189,7 +189,7 @@ Developing a causal framework helps in understanding the relationships between d
 
 #### **Implementation Strategies**
 
-- **API Integration:** Use OpenAI's GPT-4 API.
+- **API Integration:** Use Gemini API.
 - **Fine-Tuning:** Adapt LLMs on domain-specific datasets for better performance.
 
 ### **c. Active Use of ML and LLMs at Every Step**
@@ -419,7 +419,7 @@ Building an LLM-assisted autonomous real-time threat detection and response syst
 - **Machine Learning and Deep Learning:**
   - scikit-learn, TensorFlow, PyTorch
 - **Large Language Models:**
-  - OpenAI GPT-4 API, (Future) Google Gemini
+  - Google Gemini
 - **Security Tools:**
   - Snort, Suricata, OSSEC, Wazuh
 - **Threat Intelligence Platforms:**
@@ -445,11 +445,5 @@ Building an LLM-assisted autonomous real-time threat detection and response syst
   - High-performance systems capable of making split-second decisions.
 - **User Interfaces:**
   - Dashboards tailored for different user roles (admins, security analysts, end-users).
-
----
-
-## **Final Thoughts**
-
-Creating such a comprehensive system is challenging but feasible with current technologies. The key lies in integrating various components effectively while maintaining system performance and security. Continuous improvement and adaptation are essential, given the ever-evolving nature of cybersecurity threats.
 
 ---
