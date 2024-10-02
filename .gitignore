@@ -6,6 +6,8 @@ temp/
 cybersec_sdk/system_graph.gexf
 cybersec_sdk/system_report.json
 cybersec_sdk/.env
+cybersec_sdk/tfplan.json
+cybersec_sdk/cybersec_sdk/__pycache__/
 
 # Python
 __pycache__/
@@ -35,5 +37,3 @@ tfplan.json
 *.log
 *.swp
 .DS_Store
-
-temp.txt
