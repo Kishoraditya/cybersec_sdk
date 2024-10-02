@@ -139,10 +139,11 @@ setup(
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'Topic :: Security',
-        'License :: OSI Approved :: Creative Commons Attribution-NonCommercial 4.0 International License',  
+        'License :: Other/Proprietary License',  
         'Programming Language :: Python :: 3',
         'Operating System :: OS Independent',
     ],
+    license='CC BY-NC 4.0',
     python_requires='>=3.6',
     entry_points={
         'console_scripts': [
