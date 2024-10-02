@@ -33,7 +33,10 @@ jobs:
     - name: Build package
       working-directory: ./cybersec_sdk
       run: python -m build
+    - name: List files after build
+      run: ls -R
     - name: Publish package
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         password: ${{ secrets.PYPI_API_TOKEN }}
+        packages_dir: ./cybersec_sdk/dist/
