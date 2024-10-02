@@ -8,6 +8,7 @@ cybersec_sdk/system_report.json
 cybersec_sdk/.env
 cybersec_sdk/tfplan.json
 cybersec_sdk/cybersec_sdk/__pycache__/
+cybersec_sdk/documentation/Screen-Recording.mp4
 
 # Python
 __pycache__/

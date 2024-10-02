@@ -11,6 +11,8 @@ import pandas as pd
 from .ai_assistant import AIAssistant
 from pyvis.network import Network
 import streamlit.components.v1 as components
+import networkx as nx
+import matplotlib.pyplot as plt
 
 def display_actor_profiles(neo4j_manager):
     # Fetch users
@@ -31,20 +33,36 @@ def display_actor_profiles(neo4j_manager):
 def display_system_graph(neo4j_manager):
     # Fetch nodes and relationships from Neo4j
     nodes = neo4j_manager.run_query("MATCH (n) RETURN n")
-    relationships = neo4j_manager.run_query("MATCH (n)-[r]->(m) RETURN n.id AS from, m.id AS to, TYPE(r) AS relationship")
-
-    # Create network graph
-    net = Network(height='600px', width='100%', notebook=False)
+    relationships = neo4j_manager.run_query("""
+        MATCH (n)-[r]->(m) 
+        RETURN n.id AS source, m.id AS target, TYPE(r) AS relationship
+    """)
+    
+    # Create a NetworkX graph
+    G = nx.DiGraph()
+    
+    # Add nodes to the graph
     for node in nodes:
-        net.add_node(node['n']['id'], label=node['n']['name'])
-    for rel in relationships:
-        net.add_edge(rel['from'], rel['to'], label=rel['relationship'])
+        node_id = node['n']['id']
+        node_label = node['n'].get('name', 'Unnamed Node')
+        G.add_node(node_id, label=node_label)
 
-    # Generate and display graph
-    net.show('system_graph.html')
-    HtmlFile = open('system_graph.html', 'r', encoding='utf-8')
-    source_code = HtmlFile.read()
-    components.html(source_code, height=600)
+    # Add edges to the graph
+    for rel in relationships:
+        G.add_edge(rel['source'], rel['target'], label=rel['relationship'])
+
+    # Create PyVis network
+    net = Network(height='600px', width='100%', notebook=False, directed=True)
+    net.from_nx(G)
+    
+    # Draw the graph
+    plt.figure(figsize=(12, 8))
+    nx.draw(G, with_labels=True, node_color='skyblue', edge_color='gray', node_size=1500, font_size=10)
+    st.pyplot(plt)
+
+    # Generate HTML and display in Streamlit
+    html_content = net.generate_html()
+    st.components.v1.html(html_content, height=600)
     
 def run_ui(neo4j_manager):
     st.title("Cybersecurity SDK Dashboard")
